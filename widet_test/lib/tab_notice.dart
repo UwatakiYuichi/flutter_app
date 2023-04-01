@@ -22,13 +22,20 @@ class _TabNoticeState extends State<TabNotice> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 219, 90, 90).withOpacity(0.5),
+          elevation: 0.0,
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.notifications)),
-              Tab(icon: Icon(Icons.newspaper)),
+              Tab(
+                icon: Icon(Icons.notifications),
+                text: 'お知らせ',
+              ),
+              Tab(
+                icon: Icon(Icons.newspaper),
+                text: 'ニュース',
+              ),
             ],
           ),
-          title: Text('お知らせ一覧'),
         ),
         body: TabBarView(
           children: [

@@ -60,16 +60,20 @@ class _MyHomePageState extends State<MyHomePage> {
   // 選択したフッター番号
   int selectedIndex = 0;
 
-  int indexAppBar = 3;
-
   List<AppBar> appBarList = [
     AppBar(
       title: Text('1,ただのAppBar'),
     ),
     AppBar(
-      title: Text('2,テキストを中央に表示'),
+      title: Text('お知らせ一覧'),
       centerTitle: true,
     ),
+
+// AppBar(
+//       title: Text('お知らせ一覧'),
+//       centerTitle: true,
+//     ),
+
     AppBar(
       title: Text('3,左にアイコン'),
       centerTitle: true,
@@ -126,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBarList[indexAppBar],
+        appBar: appBarList[selectedIndex],
         body: display[selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.greenAccent,
