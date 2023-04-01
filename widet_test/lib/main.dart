@@ -21,6 +21,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'river_pod/count_river_pod.dart';
 
+import 'tab_notice.dart';
+
 void main() {
   runApp(
     const ProviderScope(
@@ -106,13 +108,14 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> display = [
     // HomePage(),
     StackTest(),
-    TabTest(),
+    // TabTest(),
+    TabNotice(),
     Notice(),
     MyPage(),
     GriViewCount(),
     GriViewExtent(),
     GriViewBuilder(),
-    MyListView(),
+
     MyCarousel()
   ];
 

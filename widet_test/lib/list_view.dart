@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'first_page.dart';
 
 class MyListView extends StatefulWidget {
-  const MyListView({super.key});
+  final int value;
+  const MyListView({Key? key, required this.value}) : super(key: key);
 
   @override
   State<MyListView> createState() => _MyListViewState();
@@ -10,6 +11,14 @@ class MyListView extends StatefulWidget {
 
 class _MyListViewState extends State<MyListView> {
   final listItem = List.generate(100, (i) => '$i');
+
+  late int state;
+
+  @override
+  void initState() {
+    super.initState();
+    this.state = widget.value;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +43,7 @@ class _MyListViewState extends State<MyListView> {
               color: Colors.red.shade50,
               child: ListTile(
                 title: Text('no: $index'),
-                subtitle: Text('ぼっちちゃん!. $index'),
+                subtitle: Text('ぼっちちゃん!. $index. $state'),
                 leading: Image.network(
                     'https://pbs.twimg.com/media/ECkqHryUYAECPPH.png'),
                 trailing: Icon(Icons.arrow_circle_right),

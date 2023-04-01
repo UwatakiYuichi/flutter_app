@@ -9,7 +9,6 @@ class TabNotice extends StatefulWidget {
 }
 
 class _TabNoticeState extends State<TabNotice> {
-// 別の所で初期化するよ
   late TabController _tabController;
 
   @override
@@ -19,42 +18,36 @@ class _TabNoticeState extends State<TabNotice> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: DefaultTabController(
-            length: 6,
-            child: Scaffold(
-                appBar: AppBar(
-                  title: const Text("タブ一覧"),
-                  bottom: TabBar(
-                      isScrollable: true,
-                      unselectedLabelColor: Colors.white.withOpacity(0.3),
-                      unselectedLabelStyle: TextStyle(fontSize: 12.0),
-                      tabs: [
-                        Tab(
-                          icon: Icon(Icons.camera_alt),
-                          text: "カメラ",
-                        ),
-                        Tab(
-                          icon: Icon(Icons.image),
-                          text: "イメージ",
-                        ),
-                        Tab(icon: Icon(Icons.account_box), text: "ボックス"),
-                        Tab(
-                            icon: Icon(Icons.smart_display_outlined),
-                            text: "tab1"),
-                        Tab(
-                            icon: Icon(Icons.add_home_work_sharp),
-                            text: "tab2"),
-                        Tab(icon: Icon(Icons.microwave_outlined), text: "tab3"),
-                      ]),
-                ),
-                body: const TabBarView(children: [
-                  Center(child: Text("Camera's tab")),
-                  Center(child: Text("Document's tab")),
-                  Center(child: MyListView()),
-                  Center(child: Text("tab1")),
-                  Center(child: Text("tab2")),
-                  Center(child: Text("tab3")),
-                ]))));
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.notifications)),
+              Tab(icon: Icon(Icons.newspaper)),
+            ],
+          ),
+          title: Text('お知らせ一覧'),
+        ),
+        body: TabBarView(
+          children: [
+            Center(child: Text("お知らせ")),
+            Center(
+                child: MyListView(
+              value: 10,
+            ))
+          ],
+        ),
+      ),
+    );
   }
 }
+
+
+
+
+
+
+// Center(child: Text("お知らせ")),
+//               Center(child: MyListView()),

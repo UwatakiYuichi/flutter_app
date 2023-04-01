@@ -51,7 +51,10 @@ class _TabTestState extends State<TabTest> {
                 body: const TabBarView(children: [
                   Center(child: Text("Camera's tab")),
                   Center(child: Text("Document's tab")),
-                  Center(child: MyListView()),
+                  Center(
+                      child: MyListView(
+                    value: 2,
+                  )),
                   Center(child: Text("tab1")),
                   Center(child: Text("tab2")),
                   Center(child: Text("tab3")),
