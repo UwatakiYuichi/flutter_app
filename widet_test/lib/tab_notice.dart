@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'list_view.dart';
+
+class TabNotice extends StatefulWidget {
+  const TabNotice({super.key});
+
+  @override
+  State<TabNotice> createState() => _TabNoticeState();
+}
+
+class _TabNoticeState extends State<TabNotice> {
+// 別の所で初期化するよ
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: DefaultTabController(
+            length: 6,
+            child: Scaffold(
+                appBar: AppBar(
+                  title: const Text("タブ一覧"),
+                  bottom: TabBar(
+                      isScrollable: true,
+                      unselectedLabelColor: Colors.white.withOpacity(0.3),
+                      unselectedLabelStyle: TextStyle(fontSize: 12.0),
+                      tabs: [
+                        Tab(
+                          icon: Icon(Icons.camera_alt),
+                          text: "カメラ",
+                        ),
+                        Tab(
+                          icon: Icon(Icons.image),
+                          text: "イメージ",
+                        ),
+                        Tab(icon: Icon(Icons.account_box), text: "ボックス"),
+                        Tab(
+                            icon: Icon(Icons.smart_display_outlined),
+                            text: "tab1"),
+                        Tab(
+                            icon: Icon(Icons.add_home_work_sharp),
+                            text: "tab2"),
+                        Tab(icon: Icon(Icons.microwave_outlined), text: "tab3"),
+                      ]),
+                ),
+                body: const TabBarView(children: [
+                  Center(child: Text("Camera's tab")),
+                  Center(child: Text("Document's tab")),
+                  Center(child: MyListView()),
+                  Center(child: Text("tab1")),
+                  Center(child: Text("tab2")),
+                  Center(child: Text("tab3")),
+                ]))));
+  }
+}
