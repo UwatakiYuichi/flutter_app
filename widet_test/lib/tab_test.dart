@@ -9,6 +9,14 @@ class TabTest extends StatefulWidget {
 }
 
 class _TabTestState extends State<TabTest> {
+  List tbl = [
+    {
+      "title": "特典獲得のお知らせ",
+      "time": "2023/04/02 11:26",
+      "summary": "特典獲得条件に該当するためお知らせをさせていただきます。",
+    }
+  ];
+
 // 別の所で初期化するよ
   late TabController _tabController;
 

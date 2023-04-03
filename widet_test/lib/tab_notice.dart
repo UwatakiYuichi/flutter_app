@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'list_view.dart';
+import 'list_view_notice.dart';
 
 class TabNotice extends StatefulWidget {
   const TabNotice({super.key});
@@ -9,6 +10,19 @@ class TabNotice extends StatefulWidget {
 }
 
 class _TabNoticeState extends State<TabNotice> {
+  List notices = [
+    {
+      "title": "特典獲得のお知らせ",
+      "time": "2023/04/02 11:26",
+      "summary": "特典獲得条件に該当するためお知らせをさせていただきます。",
+    },
+    {
+      "title": "大型アップデートのお知らせ",
+      "time": "2023/04/03 10:26",
+      "summary": "この度、大型アップデート対応により以下機能を追加いたしましたためお知らせさせていただきます",
+    }
+  ];
+
   late TabController _tabController;
 
   @override
@@ -39,7 +53,7 @@ class _TabNoticeState extends State<TabNotice> {
         ),
         body: TabBarView(
           children: [
-            Center(child: Text("お知らせ")),
+            Center(child: ListViewNotice(listNotices: this.notices)),
             Center(
                 child: MyListView(
               value: 10,

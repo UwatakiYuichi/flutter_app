@@ -29,11 +29,15 @@ class _StackTestState extends State<StackTest> {
           '/books/v1/volumes',
           {'q': '{Flutter}', 'maxResults': '40', 'langRestrict': 'ja'}));
 
+      print(response);
+
       // 2. 問題がなければ、Json型に変換したデータを格納
       var jsonResponse = _response(response);
       // 3. 本の情報をリスト形式でデータを格納
       setState(() {
         items = jsonResponse['items'];
+
+        // print(items);
         isLoading = false;
       });
     } on SocketException catch (e) {
@@ -48,7 +52,10 @@ class _StackTestState extends State<StackTest> {
     switch (response.statusCode) {
       case 200:
         var responseJson = jsonDecode(response.body);
-        print(responseJson['items']);
+        // print(responseJson['items']);
+        print("##moyomoy##");
+
+        print(response.body);
 
         return responseJson;
       case 400:
