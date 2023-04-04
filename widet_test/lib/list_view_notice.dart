@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'first_page.dart';
+import 'notice/notice_detail.dart';
 
 class ListViewNotice extends StatefulWidget {
   // final int value;
@@ -33,8 +34,16 @@ class _ListViewNoticeState extends State<ListViewNotice> {
             child: GestureDetector(
           onTap: () {
             print('押しちゃったわ_ $index');
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => FirstPage('$index')));
+
+            dynamic vv = listNotices[index];
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NoticeDetail(objNotice: vv)));
+
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => FirstPage('$index')));
           },
           onDoubleTap: () {
             print("##ダブルタップ:$index");
