@@ -23,6 +23,24 @@ class _TabNoticeState extends State<TabNotice> {
     }
   ];
 
+  List noticesNews = [
+    {
+      "title": "ニュースのお知らせ",
+      "time": "2023/04/02 11:26",
+      "summary": "特典獲得条件に該当するためお知らせをさせていただきます。",
+    },
+    {
+      "title": "サービス終了のお知らせ",
+      "time": "2023/04/03 10:26",
+      "summary": "この度、大型アップデート対応により以下機能を追加いたしましたためお知らせさせていただきます\n※詳細はこちら\n",
+    },
+    {
+      "title": "今後の運営方針についてのお知らせ",
+      "time": "2023/04/03 10:26",
+      "summary": "この度、大型アップデート対応により以下機能を追加いたしましたためお知らせさせていただきます\n※詳細はこちら\n",
+    }
+  ];
+
   late TabController _tabController;
 
   @override
@@ -54,10 +72,7 @@ class _TabNoticeState extends State<TabNotice> {
         body: TabBarView(
           children: [
             Center(child: ListViewNotice(listNotices: this.notices)),
-            Center(
-                child: MyListView(
-              value: 10,
-            ))
+            Center(child: ListViewNotice(listNotices: this.noticesNews)),
           ],
         ),
       ),
