@@ -46,6 +46,12 @@ class _TabNoticeState extends State<TabNotice> {
   @override
   void initState() {
     super.initState();
+
+    this.noticesNews.add({
+      "title": "追加分ですよ",
+      "time": "2023/04/03 10:26",
+      "summary": "ヒャッハ〜\n",
+    });
   }
 
   @override
