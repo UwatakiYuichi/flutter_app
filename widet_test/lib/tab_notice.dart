@@ -46,12 +46,6 @@ class _TabNoticeState extends State<TabNotice> {
   @override
   void initState() {
     super.initState();
-
-    this.noticesNews.add({
-      "title": "追加分ですよ",
-      "time": "2023/04/03 10:26",
-      "summary": "ヒャッハ〜\n",
-    });
   }
 
   @override
@@ -77,19 +71,11 @@ class _TabNoticeState extends State<TabNotice> {
         ),
         body: TabBarView(
           children: [
-            Center(child: ListViewNotice(listNotices: this.notices)),
-            Center(child: ListViewNotice(listNotices: this.noticesNews)),
+            Center(child: ListViewNotice(listNotices: notices)),
+            Center(child: ListViewNotice(listNotices: noticesNews)),
           ],
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-// Center(child: Text("お知らせ")),
-//               Center(child: MyListView()),

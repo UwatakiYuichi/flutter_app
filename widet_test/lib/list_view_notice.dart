@@ -16,101 +16,119 @@ class ListViewNotice extends StatefulWidget {
 }
 
 class _ListViewNoticeState extends State<ListViewNotice> {
-  ScrollController _scrollController = ScrollController();
   late List listNotices;
 
-  bool isInit = true;
-  bool isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // this.state = widget.value;
-
-    this.listNotices = widget.listNotices;
-
-    if (this.listNotices.length <= 10) {
-      this.listNotices.add({
-        "title": "エアリアル",
-        "time": "2023/04/03 10:26",
-        "summary": "水星の魔女\n",
-      });
-    }
-  }
+  final List _listSample = [];
 
   // 非同期で待機する
-  Future<String> asyncFunc(String name, int time) async {
-    setState(() {
-      isLoading = true;
-    });
-    return Future.delayed(Duration(seconds: time), () {
-      print("終了");
-
-      return name + ":" + DateTime.now().toString();
-    });
+  Future<void> _getContents() async {
+    print("##ぼっちスタート");
+    await Future.delayed(const Duration(seconds: 3));
+    for (int i = 0; i < 10; i++) {
+      _listSample.add({
+        "title": "追加分ですよ",
+        "time": "2023/04/03 10:26",
+        "summary": "ヒャッハ〜\n",
+      });
+    }
+    print("##ぼっちえんd");
+    print(_listSample.length);
   }
 
   @override
   Widget build(BuildContext context) {
-    return !isLoading
-        ? Scrollbar(
-            child: NotificationListener<ScrollNotification>(
-            onNotification: (notification) {
-              if (notification is ScrollNotification) {
-                final before = notification.metrics.extentBefore;
-                final max = notification.metrics.maxScrollExtent;
-                if (!isLoading && before == max) {
-                  setState(() {
-                    isLoading = true;
-                    for (int i = 0; i < 10; i++) {
-                      this.listNotices.add({
-                        "title": "ルブリス",
-                        "time": "2023/04/03 10:26",
-                        "summary": "エリクト\n",
-                      });
-                    }
-                    isLoading = false;
-                    print(this.listNotices.length);
-                  });
-                }
-              }
+    return FutureBuilder(
+        future: _getContents(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            print("待機中");
+            return const CircularProgressIndicator();
+          }
+          if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+          return InfinityListView(
+              contents: _listSample, getContents: _getContents);
+        });
+  }
+}
 
-              return false;
-            },
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: listNotices.length, //並べたい要素の数を指定する
-              itemBuilder: (context, int index) {
-                // index はこの ListView における要素の番号
-                return Center(
-                    child: GestureDetector(
-                  onTap: () {
-                    dynamic targetNotice = listNotices[index];
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                NoticeDetail(objNotice: targetNotice)));
-                  },
-                  onDoubleTap: () {
-                    print("##ダブルタップ:$index");
-                  },
-                  onLongPress: () {
-                    print("ロングプレス: %index");
-                  },
-                  child: Ink(
-                      color: Colors.red.shade50,
-                      child: ListTile(
-                        title: Text(listNotices[index]['title']),
-                        subtitle: Text(listNotices[index]['time']),
-                        leading: Image.network(
-                            'https://pbs.twimg.com/media/ECkqHryUYAECPPH.png'),
-                        trailing: Icon(Icons.arrow_right_alt_sharp),
-                      )),
-                ));
-              },
-            ),
-          ))
-        : MyIndicator();
+class InfinityListView extends StatefulWidget {
+  final List contents;
+  final Future<void> Function() getContents;
+  const InfinityListView({
+    Key? key,
+    required this.contents,
+    required this.getContents,
+  }) : super(key: key);
+
+  @override
+  State<InfinityListView> createState() => _InfinityListViewState();
+}
+
+class _InfinityListViewState extends State<InfinityListView> {
+  late ScrollController _scrollController;
+  //6
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(() async {
+      if (_scrollController.position.pixels >
+              _scrollController.position.maxScrollExtent * 1 &&
+          !_isLoading) {
+        _isLoading = true;
+
+        await widget.getContents();
+
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      controller: _scrollController,
+      itemCount: widget.contents.length, //並べたい要素の数を指定する
+      itemBuilder: (context, int index) {
+        return Center(
+            child: GestureDetector(
+          onTap: () {
+            dynamic targetNotice = widget.contents[index];
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        NoticeDetail(objNotice: targetNotice)));
+          },
+          onDoubleTap: () {
+            print("##ダブルタップ:$index");
+          },
+          onLongPress: () {
+            print("ロングプレス: %index");
+          },
+          child: Ink(
+              color: Colors.red.shade50,
+              child: ListTile(
+                title: Text(widget.contents[index]['title'] + index.toString()),
+                subtitle: Text(widget.contents[index]['time']),
+                leading: Image.network(
+                    'https://pbs.twimg.com/media/ECkqHryUYAECPPH.png'),
+                trailing: Icon(Icons.arrow_right_alt_sharp),
+              )),
+        ));
+      },
+    );
   }
 }
