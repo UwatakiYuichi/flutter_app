@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:widet_test/common/indicator.dart';
 import 'first_page.dart';
@@ -18,21 +19,21 @@ class ListViewNotice extends StatefulWidget {
 class _ListViewNoticeState extends State<ListViewNotice> {
   late List listNotices;
 
-  final List _listSample = [];
+  late List _listSample = [];
 
   // 非同期で待機する
-  Future<void> _getContents() async {
-    print("##ぼっちスタート");
-    await Future.delayed(const Duration(seconds: 3));
+  Future<List> _getContents() async {
+    await Future.delayed(const Duration(seconds: 1));
+
+    List arr = [];
     for (int i = 0; i < 10; i++) {
-      _listSample.add({
-        "title": "追加分ですよ",
+      arr.add({
+        "title": "追加お知らせ",
         "time": "2023/04/03 10:26",
-        "summary": "ヒャッハ〜\n",
+        "summary": "お知らせ\n詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細詳細",
       });
     }
-    print("##ぼっちえんd");
-    print(_listSample.length);
+    return arr;
   }
 
   @override
@@ -40,22 +41,27 @@ class _ListViewNoticeState extends State<ListViewNotice> {
     return FutureBuilder(
         future: _getContents(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            print("待機中");
-            return const CircularProgressIndicator();
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const CupertinoActivityIndicator();
           }
           if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-          return InfinityListView(
-              contents: _listSample, getContents: _getContents);
+
+          if (snapshot.hasData) {
+            _listSample.addAll(snapshot.data);
+            return InfinityListView(
+                contents: _listSample, getContents: _getContents);
+          } else {
+            return Text("データがありません");
+          }
         });
   }
 }
 
 class InfinityListView extends StatefulWidget {
   final List contents;
-  final Future<void> Function() getContents;
+  final Future<List> Function() getContents;
   const InfinityListView({
     Key? key,
     required this.contents,
@@ -78,9 +84,13 @@ class _InfinityListViewState extends State<InfinityListView> {
       if (_scrollController.position.pixels >
               _scrollController.position.maxScrollExtent * 1 &&
           !_isLoading) {
-        _isLoading = true;
+        setState(() {
+          _isLoading = true;
+        });
 
-        await widget.getContents();
+        var addData = await widget.getContents();
+
+        widget.contents.addAll(addData);
 
         setState(() {
           _isLoading = false;
@@ -98,37 +108,51 @@ class _InfinityListViewState extends State<InfinityListView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: widget.contents.length, //並べたい要素の数を指定する
-      itemBuilder: (context, int index) {
-        return Center(
-            child: GestureDetector(
-          onTap: () {
-            dynamic targetNotice = widget.contents[index];
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        NoticeDetail(objNotice: targetNotice)));
-          },
-          onDoubleTap: () {
-            print("##ダブルタップ:$index");
-          },
-          onLongPress: () {
-            print("ロングプレス: %index");
-          },
-          child: Ink(
-              color: Colors.red.shade50,
-              child: ListTile(
-                title: Text(widget.contents[index]['title'] + index.toString()),
-                subtitle: Text(widget.contents[index]['time']),
-                leading: Image.network(
-                    'https://pbs.twimg.com/media/ECkqHryUYAECPPH.png'),
-                trailing: Icon(Icons.arrow_right_alt_sharp),
-              )),
-        ));
-      },
+    return Stack(
+      children: [
+        Scrollbar(
+            isAlwaysShown: true,
+            child: ListView.builder(
+              controller: _scrollController,
+              itemCount: widget.contents.length, //並べたい要素の数を指定する
+              itemBuilder: (context, int index) {
+                return Center(
+                    child: GestureDetector(
+                  onTap: () {
+                    dynamic targetNotice = widget.contents[index];
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                NoticeDetail(objNotice: targetNotice)));
+                  },
+                  onDoubleTap: () {
+                    print("##ダブルタップ:$index");
+                  },
+                  onLongPress: () {
+                    print("ロングプレス: %index");
+                  },
+                  child: Ink(
+                      color: Colors.red.shade50,
+                      child: ListTile(
+                        title: Text(
+                            widget.contents[index]['title'] + index.toString()),
+                        subtitle: Text(widget.contents[index]['time']),
+                        leading: Image.network(
+                            'https://pbs.twimg.com/media/ECkqHryUYAECPPH.png'),
+                        trailing: Icon(Icons.arrow_right_alt_sharp),
+                      )),
+                ));
+              },
+            )),
+        _isLoading
+            ? Container(
+                alignment: Alignment.bottomCenter,
+                margin: EdgeInsets.all(30),
+                child: CupertinoActivityIndicator(),
+              )
+            : Container()
+      ],
     );
   }
 }
