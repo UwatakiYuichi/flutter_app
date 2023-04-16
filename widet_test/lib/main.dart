@@ -23,6 +23,8 @@ import 'river_pod/count_river_pod.dart';
 
 import 'tab_notice.dart';
 
+import 'youtube/youtube_player.dart';
+
 void main() {
   runApp(
     const ProviderScope(
@@ -114,7 +116,8 @@ class _MyHomePageState extends State<MyHomePage> {
     StackTest(),
     // TabTest(),
     TabNotice(),
-    Notice(),
+    YoutubePlayer(),
+    // Notice(),
     MyPage(),
     GriViewCount(),
     GriViewExtent(),
