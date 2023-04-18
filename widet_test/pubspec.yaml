@@ -41,6 +41,8 @@ dependencies:
   flutter_riverpod: ^2.3.2
   url_launcher: ^6.1.10
   youtube_player_iframe: ^4.0.4
+  youtube: ^1.0.1
+  youtube_api: ^1.0.4
 
 dev_dependencies:
   flutter_test:

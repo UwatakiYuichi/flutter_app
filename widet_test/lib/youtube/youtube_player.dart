@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:youtube/youtube.dart';
+import 'package:youtube/youtube_thumbnail.dart';
 
 const List<String> _videoIds = [
   'IHo-Bjq7yWE',
@@ -65,6 +67,13 @@ class YoutubePlayerState extends State<YoutubePlayer> {
                     _controller.stopVideo();
                   },
                   child: Icon(Icons.stop)),
+              Image.network(
+                YoutubeThumbnail(youtubeId: 'IHo-Bjq7yWE').small(),
+                errorBuilder: (c, e, s) {
+                  print('Load failed : ${c.toString()}');
+                  return Text("ErrorImage");
+                },
+              )
             ],
           );
         },
