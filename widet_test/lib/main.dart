@@ -24,6 +24,7 @@ import 'river_pod/count_river_pod.dart';
 import 'tab_notice.dart';
 
 import 'youtube/youtube_player.dart';
+import 'youtube/youtube_playlist.dart';
 
 void main() {
   runApp(
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //     ),
 
     AppBar(
-      title: Text('3,左にアイコン'),
+      title: Text('Youtube動画再生'),
       centerTitle: true,
       leading: Icon(Icons.menu),
     ),
@@ -117,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // TabTest(),
     TabNotice(),
     YoutubePlayer(),
+    YoutubePlaylist(),
     // Notice(),
     MyPage(),
     GriViewCount(),
