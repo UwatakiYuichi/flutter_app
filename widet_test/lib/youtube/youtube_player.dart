@@ -38,26 +38,6 @@ class YoutubeDetailPlayerState extends State<YoutubeDetailPlayer> {
   YoutubeAPI youtube = new YoutubeAPI(key);
   List<YouTubeVideo> videoResult = [];
 
-  Future<void> callAPI() async {
-    String query = "水星の魔女";
-    videoResult = await youtube.search(
-      query,
-      order: 'relevance',
-      videoDuration: 'any',
-    );
-    videoResult = await youtube.nextPage();
-
-    print("----結果----");
-    print(videoResult.length);
-
-    for (int i = 0; i < videoResult.length; i++) {
-      var youTubeVideo = videoResult[i];
-      print(youTubeVideo.url);
-      print(youTubeVideo.thumbnail.small.url);
-    }
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
@@ -80,15 +60,19 @@ class YoutubeDetailPlayerState extends State<YoutubeDetailPlayer> {
 
     print(videoId);
 
-    _controller.loadPlaylist(
-      list: videoIds,
-      listType: ListType.playlist,
-      startSeconds: 136,
+    // _controller.loadPlaylist(
+    //   list: [videoId],
+    //   listType: ListType.playlist,
+    //   startSeconds: 136,
+    // );
+
+    _controller = YoutubePlayerController.fromVideoId(
+      videoId: videoId,
+      autoPlay: true,
+      params: const YoutubePlayerParams(showFullscreenButton: true),
     );
 
-    // youtubeAPIを
-    callAPI();
-    print('hello');
+    setState(() {});
   }
 
   @override
