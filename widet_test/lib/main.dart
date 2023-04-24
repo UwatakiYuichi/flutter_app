@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
     StackTest(),
     // TabTest(),
     TabNotice(),
-    YoutubePlayer(),
+
     YoutubePlaylist(),
     // Notice(),
     MyPage(),

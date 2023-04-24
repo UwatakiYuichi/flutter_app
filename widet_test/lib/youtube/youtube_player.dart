@@ -12,14 +12,21 @@ const List<String> _videoIds = [
   'a6wG03d1xFU&list=RDMMa6wG03d1xFU&start_radio=1',
 ];
 
-class YoutubePlayer extends StatefulWidget {
-  const YoutubePlayer({super.key});
+class YoutubeDetailPlayer extends StatefulWidget {
+  // const YoutubeDetailPlayer({super.key});
+
+  // ビデオI
+  final YouTubeVideo video;
+
+  const YoutubeDetailPlayer({Key? key, required this.video}) : super(key: key);
+
+  // const NoticeDetail({Key? key, required this.objNotice}) : super(key: key);
 
   @override
-  State<YoutubePlayer> createState() => YoutubePlayerState();
+  State<YoutubeDetailPlayer> createState() => YoutubeDetailPlayerState();
 }
 
-class YoutubePlayerState extends State<YoutubePlayer> {
+class YoutubeDetailPlayerState extends State<YoutubeDetailPlayer> {
   late YoutubePlayerController _controller;
 
   int max = 25;
@@ -68,8 +75,13 @@ class YoutubePlayerState extends State<YoutubePlayer> {
       (isFullScreen) {},
     );
 
+    String videoId = widget.video.id ?? '';
+    List<String> videoIds = [videoId];
+
+    print(videoId);
+
     _controller.loadPlaylist(
-      list: _videoIds,
+      list: videoIds,
       listType: ListType.playlist,
       startSeconds: 136,
     );
@@ -109,7 +121,7 @@ class YoutubePlayerState extends State<YoutubePlayer> {
                   },
                   child: Icon(Icons.stop)),
               Image.network(
-                YoutubeThumbnail(youtubeId: 'IHo-Bjq7yWE').small(),
+                YoutubeThumbnail(youtubeId: widget.video.id).small(),
                 errorBuilder: (c, e, s) {
                   print('Load failed : ${c.toString()}');
                   return Text("ErrorImage");

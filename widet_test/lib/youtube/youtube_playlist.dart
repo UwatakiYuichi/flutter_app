@@ -7,6 +7,7 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:youtube/youtube.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import 'package:youtube_api/youtube_api.dart';
+import './youtube_player.dart';
 
 class YoutubePlaylist extends StatefulWidget {
   const YoutubePlaylist({super.key});
@@ -61,6 +62,17 @@ class YoutubePlaylistState extends State<YoutubePlaylist> {
 
   Widget listItem(YouTubeVideo video) {
     return Card(
+        child: GestureDetector(
+      onTap: () {
+        print("押したわよ");
+
+        print(video);
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => YoutubeDetailPlayer(video: video)));
+      },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 7.0),
         padding: EdgeInsets.all(12.0),
@@ -101,6 +113,6 @@ class YoutubePlaylistState extends State<YoutubePlaylist> {
           ],
         ),
       ),
-    );
+    ));
   }
 }
