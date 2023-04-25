@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import './common/indicator.dart';
 
-class StackTest extends StatefulWidget {
-  const StackTest({super.key});
+class ApiTest extends StatefulWidget {
+  const ApiTest({super.key});
 
   @override
-  State<StackTest> createState() => _StackTestState();
+  State<ApiTest> createState() => _ApiTestState();
 }
 
-class _StackTestState extends State<StackTest> {
+class _ApiTestState extends State<ApiTest> {
   List items = [];
   bool isError = false;
   String errorString = '';

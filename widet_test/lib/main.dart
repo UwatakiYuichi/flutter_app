@@ -21,8 +21,10 @@ import 'package:provider/provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'river_pod/count_river_pod.dart';
 
+// お知らせ(タブ含む)
 import 'tab_notice.dart';
 
+// youtube関連
 import 'youtube/youtube_player.dart';
 import 'youtube/youtube_playlist.dart';
 
@@ -113,19 +115,14 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   List<Widget> display = [
-    // HomePage(),
-    StackTest(),
-    // TabTest(),
+    MyCarousel(),
+    // ApiTest(),
     TabNotice(),
-
     YoutubePlaylist(),
-    // Notice(),
     MyPage(),
     GriViewCount(),
     GriViewExtent(),
     GriViewBuilder(),
-
-    MyCarousel()
   ];
 
   int _counter = 0;
@@ -142,9 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
-            BottomNavigationBarItem(icon: Icon(Icons.camera), label: 'タブ'),
+            BottomNavigationBarItem(icon: Icon(Icons.camera), label: 'お知らせ'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_none), label: 'お知らせ'),
+                icon: Icon(Icons.notifications_none), label: '動画'),
             BottomNavigationBarItem(icon: Icon(Icons.people), label: 'マイページ'),
             BottomNavigationBarItem(icon: Icon(Icons.piano), label: 'グリッド(数)'),
             BottomNavigationBarItem(icon: Icon(Icons.piano), label: 'グリッド(幅)'),
