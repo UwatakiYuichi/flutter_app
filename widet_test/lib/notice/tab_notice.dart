@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'list_view.dart';
-import 'list_view_notice.dart';
+import '../list_view.dart';
+import '../list_view_notice.dart';
 
 class TabNotice extends StatefulWidget {
   const TabNotice({super.key});

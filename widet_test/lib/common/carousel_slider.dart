@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class MyCarousel extends StatefulWidget {
+class CarouselSliderParts extends StatefulWidget {
   // コンストラクタ
-  const MyCarousel({super.key});
+  const CarouselSliderParts({super.key});
 
   @override
-  State<MyCarousel> createState() => _MyCarouselState();
+  State<CarouselSliderParts> createState() => _CarouselSliderPartsState();
 }
 
-class _MyCarouselState extends State<MyCarousel> {
+class _CarouselSliderPartsState extends State<CarouselSliderParts> {
   final images = [
     "lib/assets/images/raisu1.jpg",
     "lib/assets/images/raisu2.jpeg",
@@ -26,6 +26,7 @@ class _MyCarouselState extends State<MyCarousel> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Center(
+            child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -51,7 +52,7 @@ class _MyCarouselState extends State<MyCarousel> {
               // buildIndicator()
             ],
           ),
-        ),
+        )),
       );
 
   Widget buildImage(path, index) => Container(

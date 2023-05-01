@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:widet_test/home/home.dart';
 import 'my_parts.dart';
 import 'rock_parts.dart';
-import 'common_footer.dart';
+import 'common/common_footer.dart';
+import 'common/carousel_slider.dart';
 
 import 'home_page.dart';
 import 'notice.dart';
@@ -13,7 +15,6 @@ import 'grid_view_builder.dart';
 import 'list_view.dart';
 import 'tab_test.dart';
 
-import 'carousel_slider.dart';
 import 'stack_test.dart';
 
 import 'test_provider.dart';
@@ -22,7 +23,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'river_pod/count_river_pod.dart';
 
 // お知らせ(タブ含む)
-import 'tab_notice.dart';
+import 'notice/tab_notice.dart';
 
 // youtube関連
 import 'youtube/youtube_player.dart';
@@ -115,8 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   List<Widget> display = [
-    MyCarousel(),
     // ApiTest(),
+    Home(),
+    CarouselSliderParts(),
     TabNotice(),
     YoutubePlaylist(),
     MyPage(),
