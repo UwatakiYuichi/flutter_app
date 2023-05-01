@@ -3,7 +3,7 @@ import 'package:widet_test/home/home.dart';
 import 'my_parts.dart';
 import 'rock_parts.dart';
 import 'common/common_footer.dart';
-import 'common/carousel_slider.dart';
+import 'home/carousel_slider.dart';
 
 import 'home_page.dart';
 import 'notice.dart';
@@ -118,7 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> display = [
     // ApiTest(),
     Home(),
-    CarouselSliderParts(),
     TabNotice(),
     YoutubePlaylist(),
     MyPage(),

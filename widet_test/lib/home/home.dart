@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:widet_test/common/carousel_slider.dart';
+import 'package:widet_test/home/carousel_slider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
