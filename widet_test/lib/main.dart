@@ -67,9 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int selectedIndex = 0;
 
   List<AppBar> appBarList = [
-    AppBar(
-      title: Text('1,ただのAppBar'),
-    ),
+    AppBar(),
     AppBar(
       title: Text('お知らせ一覧'),
       centerTitle: true,
@@ -133,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBarList[selectedIndex],
+        appBar: getAppBar(selectedIndex),
         body: display[selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.greenAccent,
@@ -163,5 +161,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // 選択中フッターメニューの色
           fixedColor: Color.fromARGB(255, 0, 26, 255),
         ));
+  }
+
+  PreferredSizeWidget? getAppBar(int index) {
+    if (index > 0) {
+      return appBarList[index];
+    }
+    return null;
   }
 }
