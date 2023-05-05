@@ -31,10 +31,5 @@ class _HomeState extends State<Home> {
         Expanded(child: GriViewBuilder())
       ],
     );
-
-    // return Container(
-    //     alignment: Alignment(0.0, 1.0),
-    //     color: Color.fromARGB(255, 3, 4, 4),
-    //     child: CarouselSliderParts());
   }
 }
