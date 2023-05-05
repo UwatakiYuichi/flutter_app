@@ -15,7 +15,7 @@ class CarouselSliderParts extends StatefulWidget {
 class _CarouselSliderPartsState extends State<CarouselSliderParts> {
   final images = [
     "lib/assets/images/raisu1.jpg",
-    "lib/assets/images/raisu2.jpeg",
+    "lib/assets/images/raisu2.jpg",
     "lib/assets/images/raisu3.jpeg",
   ];
   int activeIndex = 0;
@@ -51,14 +51,6 @@ class _CarouselSliderPartsState extends State<CarouselSliderParts> {
                   return buildImage(path, index);
                 },
               ),
-              SizedBox(height: 10),
-              // buildIndicator()
-              Container(
-                width: double.infinity,
-                height: 900,
-                child: GriViewBuilder(),
-                color: Color.fromARGB(255, 0, 95, 73),
-              )
             ],
           ),
         ))),
