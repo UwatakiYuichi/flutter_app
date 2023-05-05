@@ -11,6 +11,7 @@ class SliderNew extends StatefulWidget {
 }
 
 class _SliderNewState extends State<SliderNew> {
+  int activeIndex = 0;
   late List listImages;
 
   @override
@@ -34,6 +35,25 @@ class _SliderNewState extends State<SliderNew> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: buildImage(listImages[0], 0));
+    return CarouselSlider.builder(
+      options: CarouselOptions(
+        // height: 400,
+        height: 100,
+        initialPage: 0,
+        autoPlay: true,
+        viewportFraction: 1,
+        enlargeCenterPage: true,
+        onPageChanged: (index, reason) => setState(() {
+          activeIndex = index;
+        }),
+      ),
+      itemCount: listImages.length,
+      itemBuilder: (context, index, realIndex) {
+        final path = listImages[index];
+        return buildImage(path, index);
+      },
+    );
+
+    // return Container(child: buildImage(listImages[0], 0));
   }
 }

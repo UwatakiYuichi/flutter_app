@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
           color: Color.fromARGB(255, 252, 183, 206),
           height: 200,
           width: 400,
-          child: Text("ウマ娘"),
+          child: Text("隙間"),
         ),
         Expanded(child: GriViewBuilder())
       ],
