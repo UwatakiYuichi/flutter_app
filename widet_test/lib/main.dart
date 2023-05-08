@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widet_test/home/home.dart';
+import 'package:widet_test/river_pod/sample_provider.dart';
 import 'my_parts.dart';
 import 'rock_parts.dart';
 import 'common/common_footer.dart';
@@ -84,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       leading: Icon(Icons.menu),
     ),
     AppBar(
-      title: Text('4,右にアイコン'),
+      title: Text('4,Provider'),
       centerTitle: true,
       actions: [Icon(Icons.add), Icon(Icons.clear)],
     ),
@@ -118,10 +119,11 @@ class _MyHomePageState extends State<MyHomePage> {
     Home(),
     TabNotice(),
     YoutubePlaylist(),
-    MyPage(),
-    GriViewCount(),
-    GriViewExtent(),
-    GriViewBuilder(),
+    SampleProvider()
+    // MyPage(),
+    // GriViewCount(),
+    // GriViewExtent(),
+    // GriViewBuilder(),
   ];
 
   int _counter = 0;
@@ -141,13 +143,8 @@ class _MyHomePageState extends State<MyHomePage> {
             BottomNavigationBarItem(icon: Icon(Icons.camera), label: 'お知らせ'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_none), label: '動画'),
-            BottomNavigationBarItem(icon: Icon(Icons.people), label: 'マイページ'),
-            BottomNavigationBarItem(icon: Icon(Icons.piano), label: 'グリッド(数)'),
-            BottomNavigationBarItem(icon: Icon(Icons.piano), label: 'グリッド(幅)'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.picture_as_pdf), label: 'グリッド(可変)'),
-            BottomNavigationBarItem(icon: Icon(Icons.museum), label: 'リストビュー'),
-            BottomNavigationBarItem(icon: Icon(Icons.usb), label: 'カルーセル'),
+                icon: Icon(Icons.people), label: 'Provider'),
           ],
           // 現在選択されているフッターメニューのインデックス
           currentIndex: selectedIndex,
