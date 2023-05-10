@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
+import 'package:state_notifier/state_notifier.dart';
+import 'package:freezed/builder.dart';
+
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 class SampleRiverpod extends StatefulWidget {
   const SampleRiverpod({super.key});
@@ -13,18 +16,9 @@ class _SampleRiverpodState extends State<SampleRiverpod> {
   @override
   Widget build(BuildContext context) {
     // 共有したいProviderを設定する
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider<CountProvider>(
-            create: (contex) => CountProvider(),
-          ),
-          ChangeNotifierProvider<ParamsProvider>(
-            create: (context) => ParamsProvider(),
-          )
-        ],
-        child: Column(
-          children: [MainWidget(), SubWidget()],
-        ));
+    return Column(
+      children: [MainWidget(), SubWidget()],
+    );
   }
 }
 
@@ -33,34 +27,12 @@ class MainWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CountProvider countProvider =
-        Provider.of<CountProvider>(context, listen: true);
-
-    final ParamsProvider paramsProvider =
-        Provider.of<ParamsProvider>(context, listen: true);
-
     return Container(
         alignment: Alignment(0, 0),
         color: Colors.green,
         child: Column(
           children: [
             Text("メインウィジェット"),
-            Text(("!!cnt_ ${countProvider.counter}")),
-            ElevatedButton(
-                onPressed: () {
-                  countProvider.incrementCounter();
-                },
-                child: Text("カウントアップ!")),
-            Text("メインウィジェット"),
-            SizedBox(
-              height: 20,
-            ),
-            Text(("!!name_ ${paramsProvider._name}")),
-            ElevatedButton(
-                onPressed: () {
-                  paramsProvider.SetName("ナリタトップロード");
-                },
-                child: Text("名前を設定_メイン!"))
           ],
         ));
   }
@@ -71,34 +43,16 @@ class SubWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CountProvider countProvider =
-        Provider.of<CountProvider>(context, listen: true);
-
-    final ParamsProvider paramsProvider =
-        Provider.of<ParamsProvider>(context, listen: true);
-
     return Container(
         width: double.infinity,
         height: 400,
         color: Color.fromARGB(255, 175, 76, 135),
         child: Column(
           children: [
-            Text("サブウィジェット"),
-            Text(("!!cnt_ ${countProvider.counter}")),
-            ElevatedButton(
-                onPressed: () {
-                  countProvider.incrementCounterValue(2);
-                },
-                child: Text("カウントアップ!")),
+            Text("RiverPod"),
             SizedBox(
               height: 20,
             ),
-            Text(("!!name_ ${paramsProvider._name}")),
-            ElevatedButton(
-                onPressed: () {
-                  paramsProvider.SetName("ライスシャワー!!");
-                },
-                child: Text("名前を設定_サブ!"))
           ],
         ));
   }
