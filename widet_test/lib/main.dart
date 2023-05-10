@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widet_test/home/home.dart';
 import 'package:widet_test/river_pod/sample_provider.dart';
+import 'package:widet_test/river_pod/sample_riverpod.dart';
 import 'my_parts.dart';
 import 'rock_parts.dart';
 import 'common/common_footer.dart';
@@ -85,12 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
       leading: Icon(Icons.menu),
     ),
     AppBar(
-      title: Text('4,Provider'),
+      title: Text('Provider'),
       centerTitle: true,
       actions: [Icon(Icons.add), Icon(Icons.clear)],
     ),
     AppBar(
-      title: Text('5,影をなくす'),
+      title: Text('RiverPod'),
       centerTitle: true,
       elevation: 0,
     ),
@@ -119,7 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Home(),
     TabNotice(),
     YoutubePlaylist(),
-    SampleProvider()
+    SampleProvider(),
+    SampleRiverpod(),
     // MyPage(),
     // GriViewCount(),
     // GriViewExtent(),
@@ -145,6 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.notifications_none), label: '動画'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.people), label: 'Provider'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.people), label: 'RiverPod'),
           ],
           // 現在選択されているフッターメニューのインデックス
           currentIndex: selectedIndex,
