@@ -38,11 +38,13 @@ dependencies:
   smooth_page_indicator: ^1.0.1
   http: ^0.13.5
   provider: ^6.0.5
-  flutter_riverpod: ^2.3.2
+  flutter_riverpod: ^2.3.6
   url_launcher: ^6.1.10
   youtube_player_iframe: ^4.0.4
   youtube: ^1.0.1
   youtube_api: ^1.0.4
+  hooks_riverpod: ^2.3.6
+  freezed: ^2.3.3
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +56,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.3.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
