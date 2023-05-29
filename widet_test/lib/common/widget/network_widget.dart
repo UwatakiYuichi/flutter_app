@@ -19,13 +19,6 @@ class NetworkWidget extends HookConsumerWidget {
 
     return Container(
         alignment: Alignment(0, 0),
-        color: Colors.green,
-        child: Column(
-          children: [
-            Text("メインウィジェット"),
-            Text("通信中"),
-            ungData.isEnable ? MyIndicator() : Container()
-          ],
-        ));
+        child: ungData.isEnable ? MyIndicator() : Container());
   }
 }

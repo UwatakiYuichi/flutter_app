@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:widet_test/common/indicator.dart';
+import 'package:widet_test/common/widget/network_widget.dart';
 import 'package:widet_test/home/home.dart';
 import 'package:widet_test/river_pod/sample_provider.dart';
 import 'package:widet_test/river_pod/sample_riverpod.dart';
@@ -26,10 +29,11 @@ import 'river_pod/count_river_pod.dart';
 
 // お知らせ(タブ含む)
 import 'notice/tab_notice.dart';
-
 // youtube関連
 import 'youtube/youtube_player.dart';
 import 'youtube/youtube_playlist.dart';
+
+// 通信用
 
 void main() {
   runApp(
@@ -132,12 +136,23 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: getAppBar(selectedIndex),
-        body: display[selectedIndex],
+        // body: display[selectedIndex],
+
+        body: Stack(
+          children: [
+            Container(color: Color.fromARGB(255, 54, 158, 244)),
+            display[selectedIndex],
+            NetworkWidget()
+          ],
+        ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.greenAccent,
 
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'ホーム',
+                backgroundColor: Color.fromARGB(255, 123, 131, 242)),
             BottomNavigationBarItem(icon: Icon(Icons.camera), label: 'お知らせ'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_none), label: '動画'),
