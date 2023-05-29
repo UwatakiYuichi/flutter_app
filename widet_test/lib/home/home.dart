@@ -21,13 +21,6 @@ class _HomeState extends State<Home> {
           "lib/assets/images/raisu1.jpg",
           "lib/assets/images/raisu2.jpg",
         ]),
-        Container(
-          alignment: Alignment(0, -1),
-          color: Color.fromARGB(255, 252, 183, 206),
-          height: 200,
-          width: 400,
-          child: Text("隙間"),
-        ),
         Expanded(child: GriViewBuilder())
       ],
     );

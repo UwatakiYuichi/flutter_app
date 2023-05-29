@@ -153,13 +153,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.home),
                 label: 'ホーム',
                 backgroundColor: Color.fromARGB(255, 123, 131, 242)),
-            BottomNavigationBarItem(icon: Icon(Icons.camera), label: 'お知らせ'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_none), label: '動画'),
+                icon: Icon(Icons.notification_add), label: 'お知らせ'),
+            BottomNavigationBarItem(icon: Icon(Icons.movie), label: '動画'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_none), label: 'Provider'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_none), label: 'Riverpod'),
+                icon: Icon(Icons.access_alarm), label: 'Provider'),
+            BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'Riverpod'),
           ],
           // 現在選択されているフッターメニューのインデックス
           currentIndex: selectedIndex,
