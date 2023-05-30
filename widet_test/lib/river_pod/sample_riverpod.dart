@@ -19,7 +19,6 @@ class SampleRiverpod extends StatefulWidget {
 class _SampleRiverpodState extends State<SampleRiverpod> {
   @override
   Widget build(BuildContext context) {
-    // 共有したいProviderを設定する
     return Column(
       children: [
         MainWidget(),

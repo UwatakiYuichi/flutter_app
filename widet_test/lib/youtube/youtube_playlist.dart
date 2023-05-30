@@ -3,10 +3,13 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:youtube/youtube.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import 'package:youtube_api/youtube_api.dart';
+import '../river_pod/freezed/mydata.dart';
+import '../river_pod/my_data_state_notifier.dart';
 import './youtube_player.dart';
 
 class YoutubePlaylist extends StatefulWidget {
@@ -41,9 +44,6 @@ class YoutubePlaylistState extends State<YoutubePlaylist> {
       videoDuration: 'any',
     );
     videoResult = await youtube.nextPage();
-
-    print("----結果----");
-    print(videoResult.length);
 
     for (int i = 0; i < videoResult.length; i++) {
       var youTubeVideo = videoResult[i];
@@ -81,10 +81,12 @@ class YoutubePlaylistState extends State<YoutubePlaylist> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 20.0),
-              child: Image.network(
-                video.thumbnail.small.url ?? '',
-                width: 120.0,
-              ),
+              child: Text(""),
+
+// child: Image.network(
+//                 video.thumbnail.small.url ?? '',
+//                 width: 120.0,
+//               ),
             ),
             Expanded(
               child: Column(
@@ -114,5 +116,35 @@ class YoutubePlaylistState extends State<YoutubePlaylist> {
         ),
       ),
     ));
+  }
+}
+
+class MainWidget extends HookConsumerWidget {
+  const MainWidget({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    MyData ungData = ref.watch(uniqueDataProvider);
+    MyDataStateNotifier uniqueNotifier = ref.read(uniqueDataProvider.notifier);
+
+    @override
+    void initState() {}
+
+    return Container(
+        alignment: Alignment(0, 0),
+        color: Colors.green,
+        child: Column(
+          children: [
+            Text("メインウィジェット"),
+            Text("${ungData.value}"),
+            Text("${ungData.isEnable}"),
+            ElevatedButton(
+                onPressed: () {
+                  uniqueNotifier.changeIsEnable(!ungData.isEnable);
+                  uniqueNotifier.changeState(ungData.value + 2);
+                },
+                child: Text("値を変更"))
+          ],
+        ));
   }
 }
