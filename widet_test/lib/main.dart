@@ -128,10 +128,6 @@ class _MyHomePageState extends State<MyHomePage> {
     SampleRiverpod()
   ];
 
-  int _counter = 0;
-
-  void _incrementCounter() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

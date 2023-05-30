@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 
 import './freezed/mydata.dart';
+import 'my_data_state_notifier.dart';
 
 final _mydataProvider = StateNotifierProvider<MyDataStateNotifier, MyData>(
     (ref) => MyDataStateNotifier());
@@ -36,6 +37,9 @@ class MainWidget extends HookConsumerWidget {
     MyData mydataWatch = ref.watch(_mydataProvider);
     MyDataStateNotifier mydataNotifier = ref.read(_mydataProvider.notifier);
 
+    MyData ungData = ref.watch(uniqueDataProvider);
+    MyDataStateNotifier uniqueNotifier = ref.read(uniqueDataProvider.notifier);
+
     return Container(
         alignment: Alignment(0, 0),
         color: Colors.green,
@@ -49,7 +53,16 @@ class MainWidget extends HookConsumerWidget {
                   mydataNotifier.changeIsEnable(true);
                   mydataNotifier.changeState(mydataWatch.value + 2);
                 },
-                child: Text("メイン"))
+                child: Text("メイン")),
+            ElevatedButton(
+                onPressed: () {
+                  uniqueNotifier.changeIsEnable(!ungData.isEnable);
+                  uniqueNotifier.changeState(ungData.value + 2);
+                  uniqueNotifier.searchYoutubeMovieList("ガンダム", () {
+                    print("##通信終了##");
+                  });
+                },
+                child: Text("GetAPI"))
           ],
         ));
   }
