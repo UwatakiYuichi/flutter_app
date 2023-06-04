@@ -12,6 +12,10 @@ import '../river_pod/freezed/mydata.dart';
 import '../river_pod/my_data_state_notifier.dart';
 import './youtube_player.dart';
 
+import 'package:flutter_hooks/flutter_hooks.dart';
+
+import '../river_pod/my_data_state_notifier.dart';
+
 class YoutubePlaylist extends StatefulWidget {
   const YoutubePlaylist({super.key});
 
@@ -55,9 +59,10 @@ class YoutubePlaylistState extends State<YoutubePlaylist> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: videoResult.map<Widget>(listItem).toList(),
-    );
+    // return ListView(
+    //   children: videoResult.map<Widget>(listItem).toList(),
+    // );
+    return ListYoutubeVideo();
   }
 
   Widget listItem(YouTubeVideo video) {
@@ -119,16 +124,36 @@ class YoutubePlaylistState extends State<YoutubePlaylist> {
   }
 }
 
-class MainWidget extends HookConsumerWidget {
-  const MainWidget({super.key});
+/*
+ * Youtube動画一覧 
+ */
+class ListYoutubeVideo extends HookConsumerWidget {
+  const ListYoutubeVideo({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     MyData ungData = ref.watch(uniqueDataProvider);
     MyDataStateNotifier uniqueNotifier = ref.read(uniqueDataProvider.notifier);
 
-    @override
-    void initState() {}
+    final state = useState(0);
+
+    useEffect(
+      () {
+        // 初回マウント時に１回だけ実行される
+
+        print("#######初期化なり");
+        uniqueNotifier.searchYoutubeMovieList("ガンダム", (result) {
+          print("##通信終了##");
+
+          print(result.length);
+        });
+
+        return () {/* dispose時に行いたい処理があればここに記載する */};
+      },
+      // 以下の値に変化があったときに再実行される。
+      // この例ではマウント時にのみ実行される。
+      [],
+    );
 
     return Container(
         alignment: Alignment(0, 0),
@@ -142,8 +167,11 @@ class MainWidget extends HookConsumerWidget {
                 onPressed: () {
                   uniqueNotifier.changeIsEnable(!ungData.isEnable);
                   uniqueNotifier.changeState(ungData.value + 2);
+                  uniqueNotifier.searchYoutubeMovieList("ガンダム", () {
+                    print("##通信終了##");
+                  });
                 },
-                child: Text("値を変更"))
+                child: Text("GetAPI"))
           ],
         ));
   }

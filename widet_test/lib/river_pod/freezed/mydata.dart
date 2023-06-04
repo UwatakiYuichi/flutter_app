@@ -61,7 +61,7 @@ class MyDataStateNotifier extends StateNotifier<MyData> {
       print(youTubeVideo.thumbnail.small.url);
     }
 
-    callback();
+    callback(videoResult);
 
     state = state.copyWith(isEnable: false);
   }
