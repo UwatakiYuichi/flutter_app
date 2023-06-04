@@ -37,7 +37,7 @@ class YoutubePlaylistState extends State<YoutubePlaylist> {
   void initState() {
     super.initState();
 
-    callAPI('水星の魔女');
+    // callAPI('水星の魔女');
   }
 
   // youtube動画情報の取得
@@ -137,15 +137,33 @@ class ListYoutubeVideo extends HookConsumerWidget {
 
     final state = useState(0);
 
+    List<YouTubeVideo> videoResult = [];
+
+    final count = useState(0);
+    final listYoutbe = useState<List<YouTubeVideo>>([]);
+    final listString = useState<List<String>>([]);
+
     useEffect(
       () {
         // 初回マウント時に１回だけ実行される
 
         print("#######初期化なり");
-        uniqueNotifier.searchYoutubeMovieList("ガンダム", (result) {
+        uniqueNotifier.searchYoutubeMovieList("ガンダム",
+            (List<YouTubeVideo> result) {
           print("##通信終了##");
 
           print(result.length);
+          print(result);
+
+// video.title
+
+          videoResult = result;
+          final newList = listString.value;
+          for (int i = 0; i < result.length; i++) {
+            newList.add(result[i].title);
+          }
+
+          listString.value = [...newList];
         });
 
         return () {/* dispose時に行いたい処理があればここに記載する */};
@@ -155,24 +173,71 @@ class ListYoutubeVideo extends HookConsumerWidget {
       [],
     );
 
-    return Container(
-        alignment: Alignment(0, 0),
-        color: Colors.green,
-        child: Column(
-          children: [
-            Text("メインウィジェット"),
-            Text("${ungData.value}"),
-            Text("${ungData.isEnable}"),
-            ElevatedButton(
-                onPressed: () {
-                  uniqueNotifier.changeIsEnable(!ungData.isEnable);
-                  uniqueNotifier.changeState(ungData.value + 2);
-                  uniqueNotifier.searchYoutubeMovieList("ガンダム", () {
-                    print("##通信終了##");
-                  });
-                },
-                child: Text("GetAPI"))
-          ],
-        ));
+    Widget listItem(YouTubeVideo video) {
+      return Card(
+          child: GestureDetector(
+        onTap: () {
+          print("押したわよ");
+
+          print(video);
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => YoutubeDetailPlayer(video: video)));
+        },
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 7.0),
+          padding: EdgeInsets.all(12.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Text(""),
+
+// child: Image.network(
+//                 video.thumbnail.small.url ?? '',
+//                 width: 120.0,
+//               ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      video.title,
+                      softWrap: true,
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 3.0),
+                      child: Text(
+                        video.channelTitle,
+                        softWrap: true,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Text(
+                      video.url,
+                      softWrap: true,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ));
+    }
+
+    return ListView(
+      children: listString.value.map<Widget>((param) {
+        return Text("${param}");
+      }).toList(),
+    );
+    // return Container(
+    //   child: Text("${count.value}"),
+    // );
   }
 }
