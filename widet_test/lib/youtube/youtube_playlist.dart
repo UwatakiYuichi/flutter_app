@@ -146,24 +146,17 @@ class ListYoutubeVideo extends HookConsumerWidget {
     useEffect(
       () {
         // 初回マウント時に１回だけ実行される
-
-        print("#######初期化なり");
         uniqueNotifier.searchYoutubeMovieList("ガンダム",
             (List<YouTubeVideo> result) {
           print("##通信終了##");
 
-          print(result.length);
-          print(result);
+          final newYoutubeList = listYoutbe.value;
 
-// video.title
+          result.forEach((element) {
+            newYoutubeList.add(element);
+          });
 
-          videoResult = result;
-          final newList = listString.value;
-          for (int i = 0; i < result.length; i++) {
-            newList.add(result[i].title);
-          }
-
-          listString.value = [...newList];
+          listYoutbe.value = [...newYoutubeList];
         });
 
         return () {/* dispose時に行いたい処理があればここに記載する */};
@@ -177,10 +170,6 @@ class ListYoutubeVideo extends HookConsumerWidget {
       return Card(
           child: GestureDetector(
         onTap: () {
-          print("押したわよ");
-
-          print(video);
-
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -232,12 +221,7 @@ class ListYoutubeVideo extends HookConsumerWidget {
     }
 
     return ListView(
-      children: listString.value.map<Widget>((param) {
-        return Text("${param}");
-      }).toList(),
+      children: listYoutbe.value.map<Widget>(listItem).toList(),
     );
-    // return Container(
-    //   child: Text("${count.value}"),
-    // );
   }
 }
