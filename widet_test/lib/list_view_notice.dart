@@ -108,51 +108,8 @@ class _InfinityListViewState extends State<InfinityListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scrollbar(
-            isAlwaysShown: true,
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: widget.contents.length, //並べたい要素の数を指定する
-              itemBuilder: (context, int index) {
-                return Center(
-                    child: GestureDetector(
-                  onTap: () {
-                    dynamic targetNotice = widget.contents[index];
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                NoticeDetail(objNotice: targetNotice)));
-                  },
-                  onDoubleTap: () {
-                    print("##ダブルタップ:$index");
-                  },
-                  onLongPress: () {
-                    print("ロングプレス: %index");
-                  },
-                  child: Ink(
-                      color: Colors.red.shade50,
-                      child: ListTile(
-                        title: Text(
-                            widget.contents[index]['title'] + index.toString()),
-                        subtitle: Text(widget.contents[index]['time']),
-                        leading: Image.network(
-                            'https://pbs.twimg.com/media/ECkqHryUYAECPPH.png'),
-                        trailing: Icon(Icons.arrow_right_alt_sharp),
-                      )),
-                ));
-              },
-            )),
-        _isLoading
-            ? Container(
-                alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.all(30),
-                child: CupertinoActivityIndicator(),
-              )
-            : Container()
-      ],
+    return Container(
+      child:Text("ホームページ")
     );
   }
 }

@@ -146,7 +146,7 @@ class ListYoutubeVideo extends HookConsumerWidget {
     useEffect(
       () {
         // 初回マウント時に１回だけ実行される
-        uniqueNotifier.searchYoutubeMovieList("ガンダム",
+        uniqueNotifier.searchYoutubeMovieList("flutter 入門",
             (List<YouTubeVideo> result) {
           print("##通信終了##");
 

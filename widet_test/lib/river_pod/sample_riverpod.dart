@@ -47,21 +47,6 @@ class MainWidget extends HookConsumerWidget {
             Text("メインウィジェット"),
             Text("${mydataWatch.value}"),
             Text("${mydataWatch.isEnable}"),
-            ElevatedButton(
-                onPressed: () {
-                  mydataNotifier.changeIsEnable(true);
-                  mydataNotifier.changeState(mydataWatch.value + 2);
-                },
-                child: Text("メイン")),
-            ElevatedButton(
-                onPressed: () {
-                  uniqueNotifier.changeIsEnable(!ungData.isEnable);
-                  uniqueNotifier.changeState(ungData.value + 2);
-                  uniqueNotifier.searchYoutubeMovieList("ガンダム", () {
-                    print("##通信終了##");
-                  });
-                },
-                child: Text("GetAPI"))
           ],
         ));
   }
