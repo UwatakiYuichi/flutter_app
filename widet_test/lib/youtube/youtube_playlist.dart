@@ -69,7 +69,7 @@ class YoutubePlaylistState extends State<YoutubePlaylist> {
     return Card(
         child: GestureDetector(
       onTap: () {
-        print("押したわよ");
+        print("押した");
 
         print(video);
 
